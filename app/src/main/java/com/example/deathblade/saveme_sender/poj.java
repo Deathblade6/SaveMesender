@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private Location mLocation;
     private double latitude, longitude;
     private double old_latitude, old_longitude;
+    private int flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +32,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sms(View view) {
-        SmsManager smsManager = SmsManager.getDefault();
-        String msg = getPosition();
-        msg += ", Time = ";
-        msg += getTime();
-        smsManager.sendTextMessage("7025266580", null, msg, null, null);
-        Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
+        sendSMS();
+        flag += 1;
     }
 
     private void sendSMS(){
         SmsManager smsManager = SmsManager.getDefault();
         String msg = getPosition();
-        msg += ", Time = ";
+        msg += ",";
         msg += getTime();
+        msg += ","
+        if(checkMethod())
+            msg += "1";
+        else
+            msg += "0";
         smsManager.sendTextMessage("7025266580", null, msg, null, null);
         Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
     }
@@ -100,6 +102,14 @@ public class MainActivity extends AppCompatActivity {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(task, 0, 30*60*1000);
         sendSMS();
+    }
+
+    private boolean checkMethod(){
+        if(flag == 0){
+            return false;
+        }
+        flag = 0;
+        return true;
     }
 
 }
