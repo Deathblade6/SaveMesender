@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private String getPosition() {
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+            return null;
         }
         Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         String lat = "Latitude = ";
