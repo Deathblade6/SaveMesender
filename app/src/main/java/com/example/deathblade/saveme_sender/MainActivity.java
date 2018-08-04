@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Location mLocation;
     private double latitude, longitude, speed;
+    private double old_latitude, old_longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +30,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sms(View view) {
-        SmsManager smsManager = SmsManager.getDefault();
-        String msg = getPosition();
-        msg += ", Time = ";
-        msg += getTime();
-        smsManager.sendTextMessage("7025266580", null, msg, null, null);
-        Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
+        sendSMS();
     }
 
 
     public void getGPS(View view) {
         getPosition();
+    }
+
+    private void sendSMS(){
+        SmsManager smsManager = SmsManager.getDefault();
+        String msg = getPosition();
+        getDistance();
+        msg += ", Time = ";
+        msg += getTime();
+        smsManager.sendTextMessage("7025266580", null, msg, null, null);
+        Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
     }
 
     private String getPosition() {
@@ -68,6 +74,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    private double getDistance(){
+
+        float[] f = new float[1];
+        Location.distanceBetween(latitude, longitude, old_latitude, old_longitude, f);
+        Log.v("MainActivity", "" + f[0]);
+        return f[0];
+    }
+
+    private void onLocationChange(){
+        if (getDistance() >= 100){
+
+        }
+    }
 
 
 
