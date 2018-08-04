@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    void sms(View view) {
+    public void sms(View view) {
         SmsManager smsManager = SmsManager.getDefault();
         String msg = getPosition();
         smsManager.sendTextMessage("7025266580", null, msg, null, null);
