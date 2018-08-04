@@ -11,8 +11,16 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Location mLocation;
+    private double latitude, longitude, speed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +31,10 @@ public class MainActivity extends AppCompatActivity {
     public void sms(View view) {
         SmsManager smsManager = SmsManager.getDefault();
         String msg = getPosition();
+        msg += ", Time = ";
+        msg += getTime();
         smsManager.sendTextMessage("7025266580", null, msg, null, null);
-
+        Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -37,13 +47,23 @@ public class MainActivity extends AppCompatActivity {
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return null ;
         }
-        Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        mLocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        latitude = mLocation.getLatitude();
+        longitude = mLocation.getLongitude();
+        speed = mLocation.getSpeed();
         String lat = "Latitude = ";
-        lat += String.valueOf(location.getLatitude());
+        lat += String.valueOf(latitude);
         lat += ", Longitude = ";
-        lat += String.valueOf(location.getLongitude());
+        lat += String.valueOf(longitude);
         Log.v("MainActivity", lat);
         return lat;
+    }
+
+    private String getTime() {
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("hh:mm aaa");
+        String timeText = format.format(date);
+        return timeText;
     }
 
 
