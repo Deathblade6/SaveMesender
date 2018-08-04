@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
         longitude = mLocation.getLongitude();
         speed = mLocation.getSpeed();
         String lat = "Latitude = ";
-        lat += String.valueOf(latitude);
+        lat += String.format("%.8f", latitude);
         lat += ", Longitude = ";
-        lat += String.valueOf(longitude);
+        lat += String.format("%.8f", longitude);
         Log.v("MainActivity", lat);
         return lat;
     }
