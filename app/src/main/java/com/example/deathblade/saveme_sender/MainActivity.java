@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         SmsManager smsManager = SmsManager.getDefault();
         String msg = getPosition();
         getDistance();
-        msg += ", Time = ";
+        msg += ",";
         msg += getTime();
         smsManager.sendTextMessage("7025266580", null, msg, null, null);
         Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
@@ -51,15 +51,16 @@ public class MainActivity extends AppCompatActivity {
     private String getPosition() {
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "Permission for GPS DENIED", Toast.LENGTH_SHORT).show();
             return null ;
         }
         mLocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         latitude = mLocation.getLatitude();
         longitude = mLocation.getLongitude();
         speed = mLocation.getSpeed();
-        String lat = "Latitude = ";
+        String lat = "";
         lat += String.format("%.8f", latitude);
-        lat += ", Longitude = ";
+        lat += ",";
         lat += String.format("%.8f", longitude);
         Log.v("MainActivity", lat);
         return lat;
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     private String getTime() {
         Date date = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat("hh:mm aaa");
+        String str = "" + date.getTime();
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
         String timeText = format.format(date);
         return timeText;
     }
@@ -87,77 +90,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
