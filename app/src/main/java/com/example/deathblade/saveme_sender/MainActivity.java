@@ -22,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
     void sms(View view) {
         SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage("7025266580", null, "WOrking", null, null);
+        String msg = getPosition();
+        smsManager.sendTextMessage("7025266580", null, msg, null, null);
+
     }
 
 
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         getPosition();
     }
 
-    private void getPosition() {
+    private String getPosition() {
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         lat += ", Longitude = ";
         lat += String.valueOf(location.getLongitude());
         Log.v("MainActivity", lat);
-
+        return lat;
     }
 
 
