@@ -16,3 +16,13 @@ SQLITE save la and lo as decimals
 
 
 
+#include<iostream.h>
+#include<conio.h>
+Void main
+{
+  Clrscs();
+  Cout<<" Hello world!!";
+  Getch();
+}
+
+Added by MUHAMMED AYIMEN
